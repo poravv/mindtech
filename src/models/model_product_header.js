@@ -1,9 +1,9 @@
 const{DataTypes}=require("sequelize")
 const database=require("../database")
 
-const service = database.define("service",{
+const product_header = database.define("product_header",{
     
-    idservice:{
+    idproduct_header:{
         type:DataTypes.INTEGER,
         autoIncrement:true,
         primaryKey:true,
@@ -16,29 +16,14 @@ const service = database.define("service",{
         type:DataTypes.STRING,
         allowNull:false
     },
-    description:{
-        type:DataTypes.STRING,
-    },
-    html_image:{
-        type:DataTypes.STRING,
-        allowNull:false
-    },
-    href:{
-        type:DataTypes.STRING,
-        allowNull:false
-    },
     state:{
-        type:DataTypes.STRING,
-        allowNull:false
-    },
-    destacado:{
         type:DataTypes.STRING,
         allowNull:false
     },
 
 },{
-    tableName:"service",
+    tableName:"product_header",
     timestamps:false,
 })
 
-module.exports=service
+module.exports=product_header

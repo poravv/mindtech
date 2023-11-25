@@ -20,6 +20,10 @@ const destacado_header = database.define("destacado_header",{
         type:DataTypes.STRING,
         allowNull:false
     },
+    tipo:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
 
 },{
     tableName:"destacado_header",

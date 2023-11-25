@@ -1,16 +1,17 @@
 const express = require('express');
 const routes = express.Router();
 const jwt = require("jsonwebtoken");
-const destacado_header = require("../models/model_destacado_header");
+const product = require("../models/model_product");
 const database = require('../database');
 const { QueryTypes } = require("sequelize");
 const verificaToken = require('../middleware/token_extractor');
-const { validateCreate } = require('../middleware/validacion_destacado_header');
+const { validateCreate } = require('../middleware/validacion_product');
 const { validateNivel } = require('../middleware/validacion_nivel');
 require("dotenv").config();
 
+
 routes.get('/getsql/', async (req, res) => {
-    await database.query('select * from destacado_header order by descripcion asc', { type: QueryTypes.SELECT })
+    await database.query('select * from product order by descripcion asc', { type: QueryTypes.SELECT })
         .then((resultado) => {
             res.json({
                 mensaje: "successfully",
@@ -21,7 +22,7 @@ routes.get('/getsql/', async (req, res) => {
 
 
 routes.get('/get/', async (req, res) => {
-    await destacado_header.findAll({where:{ state: 'AC' }}).then((resultado) => {
+    await product.findAll({where:{ state: 'AC' }}).then((resultado) => {
         res.json({
             mensaje: "successfully",
             body: resultado
@@ -30,7 +31,7 @@ routes.get('/get/', async (req, res) => {
 })
 
 routes.get('/getall/', async (req, res) => {
-    await destacado_header.findAll().then((resultado) => {
+    await product.findAll().then((resultado) => {
         res.json({
             mensaje: "successfully",
             body: resultado
@@ -38,8 +39,8 @@ routes.get('/getall/', async (req, res) => {
     })
 })
 
-routes.get('/getoneserv/', async (req, res) => {
-    await destacado_header.findOne({where:{ state: 'AC',tipo:'serv' }}).then((resultado) => {
+routes.get('/getone/', async (req, res) => {
+    await product.findOne({where:{ state: 'AC' }}).then((resultado) => {
         res.json({
             mensaje: "successfully",
             body: resultado
@@ -47,17 +48,8 @@ routes.get('/getoneserv/', async (req, res) => {
     })
 })
 
-routes.get('/getoneprod/', async (req, res) => {
-    await destacado_header.findOne({where:{ state: 'AC', tipo:'prod' }}).then((resultado) => {
-        res.json({
-            mensaje: "successfully",
-            body: resultado
-        })
-    })
-})
-
-routes.get('/get/:iddestacado_header', verificaToken, async (req, res) => {
-    await destacado_header.findByPk(req.params.iddestacado_header).then((resultado) => {
+routes.get('/get/:idproduct', verificaToken, async (req, res) => {
+    await product.findByPk(req.params.idproduct).then((resultado) => {
         res.json({
             mensaje: "successfully",
             body: resultado
@@ -68,7 +60,7 @@ routes.get('/get/:iddestacado_header', verificaToken, async (req, res) => {
 routes.post('/post/', verificaToken, validateCreate, async (req, res) => {
     const t = await database.transaction();
     try {
-        await destacado_header.create(req.body, {
+        await product.create(req.body, {
             transaction: t
         }).then((resultado) => {
             jwt.verify(req.token, process.env.CLAVESECRETA, (errorAuth, authData) => {
@@ -107,11 +99,11 @@ routes.post('/post/', verificaToken, validateCreate, async (req, res) => {
 })
 
 
-routes.put('/put/:iddestacado_header', verificaToken, async (req, res) => {
+routes.put('/put/:idproduct', verificaToken, async (req, res) => {
 
     const t = await database.transaction();
     try {
-        await destacado_header.update(req.body, { where: { iddestacado_header: req.params.iddestacado_header } }, {
+        await product.update(req.body, { where: { idproduct: req.params.idproduct } }, {
             transaction: t
         }).then((resultado) => {
             jwt.verify(req.token, process.env.CLAVESECRETA, (errorAuth, authData) => {
@@ -149,10 +141,10 @@ routes.put('/put/:iddestacado_header', verificaToken, async (req, res) => {
     }
 })
 
-routes.delete('/del/:iddestacado_header', verificaToken, async (req, res) => {
+routes.delete('/del/:idproduct', verificaToken, async (req, res) => {
     const t = await database.transaction();
     try {
-        await destacado_header.destroy({ where: { iddestacado_header: req.params.iddestacado_header } }, {
+        await product.destroy({ where: { idproduct: req.params.idproduct } }, {
             transaction: t
         }).then((resultado) => {
             jwt.verify(req.token, process.env.CLAVESECRETA, (errorAuth, authData) => {

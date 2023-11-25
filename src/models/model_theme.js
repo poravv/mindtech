@@ -12,6 +12,9 @@ const theme = database.define("theme",{
         type:DataTypes.STRING,
         allowNull:false
     },
+    header_color2:{
+        type:DataTypes.STRING,
+    },
     header_title_color:{
         type:DataTypes.STRING,
         allowNull:false

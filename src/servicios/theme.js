@@ -82,7 +82,7 @@ routes.post('/post/', verificaToken, validateCreate, async (req, res) => {
         res.json({
             mensaje: "error",
             error: error,
-            detmensaje: "Error en el servidor, verifique los campos cargados, de lo contrario contacte con el administrador"
+            detmensaje: `Error en el servidor, ${error}`
         });
         t.rollback();
     }

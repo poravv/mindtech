@@ -20,7 +20,7 @@ const service = database.define("service",{
         type:DataTypes.STRING,
     },
     html_image:{
-        type:DataTypes.STRING,
+        type:DataTypes.BLOB("long"),
         allowNull:false
     },
     href:{

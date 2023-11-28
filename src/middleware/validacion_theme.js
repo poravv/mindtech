@@ -5,7 +5,7 @@ const validateCreate = [
     check('header_color').exists().not().isEmpty().withMessage('Favor cargar un título'), 
     check('header_title_color').exists().not().isEmpty().withMessage('Favor cargar un subtítulo'), 
     check('content_background_color').exists().not().isEmpty().withMessage('Favor cargar una descripción'), 
-    check('footer_background_color').exists().not().isEmpty().withMessage('Favor cargar una descripción para el botón'), 
+    check('footer_background_color1').exists().not().isEmpty().withMessage('Favor cargar una descripción para el botón'), 
     check('footer_title_color').exists().not().isEmpty().withMessage('Favor cargar url de imagen'),
     check('footer_icon_color').exists().not().isEmpty().withMessage('Favor cargar url de imagen'),
     check('content_title_color').exists().not().isEmpty().withMessage('Favor cargar url de imagen'),

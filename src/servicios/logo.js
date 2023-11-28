@@ -1,17 +1,17 @@
 const express = require('express');
 const routes = express.Router();
 const jwt = require("jsonwebtoken");
-const service = require("../models/model_service");
+const logo = require("../models/model_logo");
 const database = require('../database');
 const { QueryTypes } = require("sequelize");
 const verificaToken = require('../middleware/token_extractor');
-const { validateCreate } = require('../middleware/validacion_service');
+const { validateCreate } = require('../middleware/validacion_logo');
 const { validateNivel } = require('../middleware/validacion_nivel');
 require("dotenv").config();
 
 
 routes.get('/getsql/', async (req, res) => {
-    await database.query('select * from service order by descripcion asc', { type: QueryTypes.SELECT })
+    await database.query('select * from logo order by descripcion asc', { type: QueryTypes.SELECT })
         .then((resultado) => {
             res.json({
                 mensaje: "successfully",
@@ -22,7 +22,7 @@ routes.get('/getsql/', async (req, res) => {
 
 
 routes.get('/get/', async (req, res) => {
-    await service.findAll({where:{ state: 'AC' }}).then((resultado) => {
+    await logo.findAll({where:{ state: 'AC' }}).then((resultado) => {
         res.json({
             mensaje: "successfully",
             body: resultado
@@ -31,7 +31,7 @@ routes.get('/get/', async (req, res) => {
 })
 
 routes.get('/getall/', async (req, res) => {
-    await service.findAll().then((resultado) => {
+    await logo.findAll().then((resultado) => {
         res.json({
             mensaje: "successfully",
             body: resultado
@@ -40,7 +40,7 @@ routes.get('/getall/', async (req, res) => {
 })
 
 routes.get('/getone/', async (req, res) => {
-    await service.findOne({where:{ state: 'AC' }}).then((resultado) => {
+    await logo.findOne({where:{ state: 'AC' }}).then((resultado) => {
         res.json({
             mensaje: "successfully",
             body: resultado
@@ -48,8 +48,8 @@ routes.get('/getone/', async (req, res) => {
     })
 })
 
-routes.get('/get/:idservice', verificaToken, async (req, res) => {
-    await service.findByPk(req.params.idservice).then((resultado) => {
+routes.get('/get/:idlogo', verificaToken, async (req, res) => {
+    await logo.findByPk(req.params.idlogo).then((resultado) => {
         res.json({
             mensaje: "successfully",
             body: resultado
@@ -60,7 +60,7 @@ routes.get('/get/:idservice', verificaToken, async (req, res) => {
 routes.post('/post/', verificaToken, validateCreate, async (req, res) => {
     const t = await database.transaction();
     try {
-        await service.create(req.body, {
+        await logo.create(req.body, {
             transaction: t
         }).then((resultado) => {
             jwt.verify(req.token, process.env.CLAVESECRETA, (errorAuth, authData) => {
@@ -99,11 +99,11 @@ routes.post('/post/', verificaToken, validateCreate, async (req, res) => {
 })
 
 
-routes.put('/put/:idservice', verificaToken, async (req, res) => {
+routes.put('/put/:idlogo', verificaToken, async (req, res) => {
 
     const t = await database.transaction();
     try {
-        await service.update(req.body, { where: { idservice: req.params.idservice } }, {
+        await logo.update(req.body, { where: { idlogo: req.params.idlogo } }, {
             transaction: t
         }).then((resultado) => {
             jwt.verify(req.token, process.env.CLAVESECRETA, (errorAuth, authData) => {
@@ -141,10 +141,10 @@ routes.put('/put/:idservice', verificaToken, async (req, res) => {
     }
 })
 
-routes.delete('/del/:idservice', verificaToken, async (req, res) => {
+routes.delete('/del/:idlogo', verificaToken, async (req, res) => {
     const t = await database.transaction();
     try {
-        await service.destroy({ where: { idservice: req.params.idservice } }, {
+        await logo.destroy({ where: { idlogo: req.params.idlogo } }, {
             transaction: t
         }).then((resultado) => {
             jwt.verify(req.token, process.env.CLAVESECRETA, (errorAuth, authData) => {

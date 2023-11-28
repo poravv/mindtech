@@ -23,7 +23,11 @@ const theme = database.define("theme",{
         type:DataTypes.STRING,
         allowNull:false
     },
-    footer_background_color:{
+    footer_background_color1:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
+    footer_background_color2:{
         type:DataTypes.STRING,
         allowNull:false
     },
@@ -59,11 +63,6 @@ const theme = database.define("theme",{
         type:DataTypes.STRING,
         allowNull:false
     },
-    html_logo:{
-        type:DataTypes.STRING,
-        allowNull:false
-    },
-
 },{
     tableName:"theme",
     timestamps:false,

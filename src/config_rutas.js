@@ -16,6 +16,7 @@ const footer_label = require('./servicios/footer_label')
 const footer_icon = require('./servicios/footer_icon')
 const usuario = require('./servicios/usuario')
 const icon = require('./servicios/icon');
+const logo = require('./servicios/logo');
 
 rutas.use('/mindtech/api/welcome',welcome);
 rutas.use('/mindtech/api/about',about);
@@ -32,5 +33,6 @@ rutas.use('/mindtech/api/footer_label',footer_label);
 rutas.use('/mindtech/api/footer_icon',footer_icon);
 rutas.use('/mindtech/api/usuario',usuario);
 rutas.use('/mindtech/api/icon',icon);
+rutas.use('/mindtech/api/logo',logo);
 
 module.exports = rutas;

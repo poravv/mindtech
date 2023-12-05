@@ -91,6 +91,7 @@ routes.post('/post/', verificaToken, validateCreate, async (req, res) => {
 
 routes.put('/put/:idtheme', verificaToken, async (req, res) => {
 
+    console.log(req.params.idtheme)
     const t = await database.transaction();
     try {
         await theme.update(req.body, { where: { idtheme: req.params.idtheme } }, {
